@@ -1,6 +1,7 @@
-import numpy as np # type: ignore
-import matplotlib.pyplot as plt # type: ignore
 import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 a  = .02
@@ -131,6 +132,7 @@ ax[1].set_title('Frequency domain')
 # plt.show()
 
 
+
 def simCircuit(I):
   firings = np.array([[],[]])
 
@@ -153,6 +155,7 @@ def simCircuit(I):
     v += .04*v**2 + 5*v + 140 - u + stim
     u += a*(b*v-u)
   return firings
+
 
 
 def plotPopActivity(firings):
@@ -183,21 +186,7 @@ def plotPopActivity(firings):
   ax[2].set_ylabel('Amplitude (a.u.)')
   ax[2].set_title('Frequency domain')
 #   plt.show()
-
-
-
-# option 1
-# I = np.ones(1234)
-# I[400:601] = -2
-
-# option 2
-# I = (np.linspace(-2,2,3001))**2
-
-# # option 3
-I = np.sin(np.linspace(0,6*np.pi,2000)*2)
-
-networkspikes = simCircuit(I)
-# plotPopActivity(networkspikes)
+  st.pyplot(fig)
 
 
 def plotPopActivityEI(firings):
@@ -233,10 +222,50 @@ def plotPopActivityEI(firings):
   ax[2].set_xlabel('Frequency (Hz)')
   ax[2].set_ylabel('Amplitude (a.u.)')
   ax[2].set_title('Frequency domain')
-  plt.show()
+#   plt.show()
+  st.pyplot(fig)
 
 
-I = np.sin(np.linspace(0,6*np.pi,2435)*2)
-I = np.random.randn(1400)
-networkspikes = simCircuit(I)
-# plotPopActivityEI(networkspikes)
+
+st.title("brainCircuit_")
+st.write("visualizing and interpreting simulation model")
+st.header("Nueral Spiking Data")
+
+# st.image("./images/img1.png")
+
+options = st.selectbox("Select for different types of Spiking",("String line based Neural Spiking","Oval based Nueral Spiking","Sinosoidal Based Nueral Spiking"))
+if options == "String line based Neural Spiking":
+    input1 = int(st.number_input(label="Enter the data"))
+
+    try:
+        I = np.ones(input1)
+        I[400:601] = -2
+        networkspikes = simCircuit(I)
+        plotPopActivity(networkspikes)
+        networkspikes = simCircuit(I)
+        plotPopActivityEI(networkspikes)
+    except:
+      st.write("")
+
+elif options == "Oval based Nueral Spiking":
+    input2 = int(st.number_input(label="Enter the data"))
+    
+    try:
+        I = (np.linspace(-2,2,input2))**2
+        networkspikes = simCircuit(I)
+        plotPopActivity(networkspikes)
+        networkspikes = simCircuit(I)
+        plotPopActivityEI(networkspikes)
+    except:
+      st.write("")
+
+elif options == "Sinosoidal Based Nueral Spiking":
+    input3 = int(st.number_input(label="Enter the data"))
+    try:
+        I = np.sin(np.linspace(0,6*np.pi,input3)*2)
+        networkspikes = simCircuit(I)
+        plotPopActivity(networkspikes)
+        networkspikes = simCircuit(I)
+        plotPopActivityEI(networkspikes)
+    except:
+       st.write("")
