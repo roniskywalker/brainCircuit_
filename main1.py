@@ -240,9 +240,3 @@ I = np.sin(np.linspace(0,6*np.pi,2435)*2)
 I = np.random.randn(1400)
 networkspikes = simCircuit(I)
 # plotPopActivityEI(networkspikes)
-
-
-st.title("brainCircuit_")
-st.write("visualizing and interpreting simulation model")
-
-st.text_input("Enter the formatted input", )

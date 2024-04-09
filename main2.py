@@ -113,36 +113,34 @@ u = b*v
 S = np.hstack((.5*np.random.rand(Ne+Ni,Ne), -np.random.rand(Ne+Ni,Ni) ))
 
 
+st.title("brainCircuit_")
+st.write("visualizing and interpreting simulation model")
 
 options = st.selectbox("Select for different graphs",("option1","option2","option3"))
 if options == "option1":
     input1 = int(st.number_input(label="Put option 1"))
-    I = np.ones(input1)
-    I[400:601] = -2
 
-    # I = np.sin(np.linspace(0,6*np.pi,2000)*2)
-
-    # networkspikes = simCircuit(I)
-    # plotPopActivity(networkspikes)
-
-    # I = np.sin(np.linspace(0,6*np.pi,2435)*2)
-    # I = np.random.randn(1400)
-    # networkspikes = simCircuit(I)
-    # plotPopActivityEI(networkspikes)
+    try:
+        I = np.ones(input1)
+        I[400:601] = -2
+        networkspikes = simCircuit(I)
+        plotPopActivity(networkspikes)
+        networkspikes = simCircuit(I)
+        plotPopActivityEI(networkspikes)
+    except:
+      st.write("No input was given")
 
 elif options == "option2":
     input2 = int(st.number_input(label="put option 2 "))
-    I = (np.linspace(-2,2,input2))**2
-
-    # I = np.sin(np.linspace(0,6*np.pi,2000)*2)
-
-    # networkspikes = simCircuit(I)
-    # plotPopActivity(networkspikes)
-
-    # I = np.sin(np.linspace(0,6*np.pi,2435)*2)
-    # I = np.random.randn(1400)
-    # networkspikes = simCircuit(I)
-    # plotPopActivityEI(networkspikes)
+    
+    try:
+        I = (np.linspace(-2,2,input2))**2
+        networkspikes = simCircuit(I)
+        plotPopActivity(networkspikes)
+        networkspikes = simCircuit(I)
+        plotPopActivityEI(networkspikes)
+    except:
+      st.write("No input was given")
 
 elif options == "option3":
     input3 = int(st.number_input(label="put option 3"))
@@ -150,12 +148,7 @@ elif options == "option3":
         I = np.sin(np.linspace(0,6*np.pi,input3)*2)
         networkspikes = simCircuit(I)
         plotPopActivity(networkspikes)
+        networkspikes = simCircuit(I)
+        plotPopActivityEI(networkspikes)
     except:
        st.write("No input was given")
-
-    # I = np.sin(np.linspace(0,6*np.pi,input3)*2)
-    # I = np.random.randn(1400)
-    # networkspikes = simCircuit(I)
-    # plotPopActivityEI(networkspikes)
-    
-    
